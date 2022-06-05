@@ -21,5 +21,7 @@ public class Chest : Collectable
         Collected = true;
         _spriteRenderer.sprite = emptyChestSprite;
         // Grant coins
+        GameManager.instance.coins += _coinsAmount;
+        GameManager.instance.ShowText($"+{_coinsAmount} coins!", 25, Color.yellow, transform.position, Vector3.up * 25, 1.5f); // expensive but ok for now
     }
 }
