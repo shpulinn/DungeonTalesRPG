@@ -6,11 +6,10 @@ public class Portal : Collidable
     private const string PlayerName = "Player";
     protected override void OnCollide(Collider2D col)
     {
-        if (col.name == PlayerName)
-        {
-            // Teleport tha Player
-            string sceneName = sceneNames[Random.Range(0, sceneNames.Length)];
-            UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(sceneName);
-        }
+        if (col.name != PlayerName) return;
+        // Teleport tha Player to random scene (dungeon)
+        GameManager.instance.SaveState();  // expensive way, but ok for now
+        string sceneName = sceneNames[Random.Range(0, sceneNames.Length)];
+        UnityEngine.SceneManagement.SceneManager.LoadScene(sceneName);
     }
 }
