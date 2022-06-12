@@ -13,8 +13,12 @@ public class Weapon : Collidable
     private SpriteRenderer _spriteRenderer;
 
     // Swing section
-    [SerializeField] private float _cooldown = 0.5f;
+    [SerializeField] private float cooldown = 0.5f;
     private float _lastSwing;
+    
+    // Constants section
+    private const string PlayerName = "Player";
+    private const string FighterTag = "Fighter";
     
     protected override void Start()
     {
@@ -26,13 +30,33 @@ public class Weapon : Collidable
     {
         base.Update();
         if (!Input.GetKeyDown(KeyCode.Space)) return;
-        if (Time.time - _lastSwing > _cooldown)
+        if (Time.time - _lastSwing > cooldown)
         {
             _lastSwing = Time.time;
             Swing();
         }
     }
 
+    protected override void OnCollide(Collider2D col)
+    {
+        if (col.tag == FighterTag)
+        {
+            if (col.name == PlayerName) return;
+            
+            // Create a new damage object, then send it to the fighter we have hit
+            Damage dmg = new Damage
+            {
+                damageAmount = damagePoint,
+                origin = transform.position,
+                pushForce = pushForce
+            };
+            
+            col.SendMessage("ReceiveDamage", dmg);
+            
+            Debug.Log(col.name);
+        }
+    }
+    
     private void Swing()
     {
         Debug.Log("Swing");
