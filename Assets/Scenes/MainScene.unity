@@ -9090,6 +9090,7 @@ GameObject:
   - component: {fileID: 1912560665}
   - component: {fileID: 1912560666}
   - component: {fileID: 1912560667}
+  - component: {fileID: 1912560668}
   m_Layer: 0
   m_Name: weapon_0
   m_TagString: Untagged
@@ -9169,7 +9170,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912560663}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
@@ -9218,6 +9219,25 @@ MonoBehaviour:
   pushForce: 4
   weaponLevel: 0
   cooldown: 0.5
+--- !u!95 &1912560668
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912560663}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 407fcfae2438d0844b0737462f2539a1, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1915331419
 PrefabInstance:
   m_ObjectHideFlags: 0
