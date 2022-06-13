@@ -15,6 +15,8 @@ public class Weapon : Collidable
     // Swing section
     [SerializeField] private float cooldown = 0.5f;
     private float _lastSwing;
+    private Animator _animator;
+    private int _swingTriggerID;
     
     // Constants section
     private const string PlayerName = "Player";
@@ -24,6 +26,10 @@ public class Weapon : Collidable
     {
         base.Start();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _animator = GetComponent<Animator>();
+        
+        // Assign ANIM ID
+        _swingTriggerID = Animator.StringToHash("Swing");
     }
 
     protected override void Update()
@@ -59,6 +65,6 @@ public class Weapon : Collidable
     
     private void Swing()
     {
-        Debug.Log("Swing");
+        _animator.SetTrigger(_swingTriggerID);
     }
 }
