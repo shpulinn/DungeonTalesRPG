@@ -13,6 +13,7 @@ public class CharacterMenu : MonoBehaviour
     public Image characterSelectionSprite;
     public Image weaponSprite;
     public RectTransform expBar;
+    public GameObject lakeOfCoinsLabel;
     
     // Character Selection
     public void OnArrowClick(bool rightDirection)
@@ -39,7 +40,10 @@ public class CharacterMenu : MonoBehaviour
 
     private void OnSelectionChanged()
     {
+        // Change sprite in Menu
         characterSelectionSprite.sprite = GameManager.instance.playerSprites[_currentCharacterSelection];
+        // Change Player sprite
+        GameManager.instance.player.SwapSprite(_currentCharacterSelection);
     }
     
     // Weapon Upgrade
@@ -49,6 +53,14 @@ public class CharacterMenu : MonoBehaviour
         {
             UpdateInfo();
         }
+        else
+        {
+            if (lakeOfCoinsLabel.activeSelf)
+                return;
+            
+            lakeOfCoinsLabel.SetActive(true);
+            Invoke(nameof(HideCoinsMessage), 2.0f);
+        }
     }
     
     // Update character information
@@ -56,7 +68,10 @@ public class CharacterMenu : MonoBehaviour
     {
         // Weapon ?
         weaponSprite.sprite = GameManager.instance.weaponSprites[GameManager.instance.weapon.weaponLevel];
-        upgradeCostText.text = "NOT IMPLEMENTED YET!";
+        if (GameManager.instance.weapon.weaponLevel == GameManager.instance.weaponPrices.Count)
+            upgradeCostText.text = "MAX LEVEL";
+        else
+            upgradeCostText.text = GameManager.instance.weaponPrices[GameManager.instance.weapon.weaponLevel].ToString();
         
         // Meta
         hitpointsText.text = GameManager.instance.player.hitPoint.ToString();
@@ -66,5 +81,10 @@ public class CharacterMenu : MonoBehaviour
         // Experience bar
         expText.text = "NOT IMPLEMENTED YET!";
         expBar.localScale = new Vector3(.5f, 0, 0);
+    }
+
+    private void HideCoinsMessage()
+    {
+        lakeOfCoinsLabel.SetActive(false);
     }
 }
