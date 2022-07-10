@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,7 @@ public class Weapon : Collidable
     
     // Upgrade section
     public int weaponLevel = 0;
-    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     // Swing section
     [SerializeField] private float cooldown = 0.5f;
@@ -21,11 +22,11 @@ public class Weapon : Collidable
     // Constants section
     private const string PlayerName = "Player";
     private const string FighterTag = "Fighter";
-    
+
     protected override void Start()
     {
         base.Start();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
         
         // Assign ANIM ID
@@ -71,8 +72,14 @@ public class Weapon : Collidable
     public void Upgrade()
     {
         weaponLevel++;
-        _spriteRenderer.sprite = GameManager.instance.weaponSprites[weaponLevel];
+        spriteRenderer.sprite = GameManager.instance.weaponSprites[weaponLevel];
         
         // Change weapon stats
+    }
+
+    public void SetWeaponLevel(int level)
+    {
+        weaponLevel = level;
+        spriteRenderer.sprite = GameManager.instance.weaponSprites[weaponLevel];
     }
 }
