@@ -61,6 +61,25 @@ public class GameManager : MonoBehaviour
         return false;
     }
     
+    // Experience logic
+    public int GetCurrentLevel()
+    {
+        int r = 0;
+        int add = 0;
+
+        while (experience >= add)
+        {
+            add += xpTable[r];
+            r++;
+            
+            // Check max level
+            if (r == xpTable.Count)
+                return r;
+        }
+
+        return r;
+    }
+    
     // ----= Save n Load states =----
     /*
      * INT preferedSkin
@@ -75,7 +94,7 @@ public class GameManager : MonoBehaviour
         s += "0" + "|";
         s += coins.ToString() + "|";
         s += experience.ToString() + "|";
-        s += "0";
+        s += weapon.weaponLevel.ToString();
         
         PlayerPrefs.SetString("SaveState", s);
         Debug.Log("Save state " + s);
@@ -93,7 +112,7 @@ public class GameManager : MonoBehaviour
         // Change skin
         coins = int.Parse(data[1]);
         experience = int.Parse(data[2]);
-        // Change weapon lvl
+        weapon.SetWeaponLevel(int.Parse(data[3]));
     }
     
     // ----= end of Save n Load =----
