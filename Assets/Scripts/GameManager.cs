@@ -147,6 +147,8 @@ public class GameManager : MonoBehaviour
         
         experience = int.Parse(data[2]);
         player.SetLevel(GetCurrentLevel());
+        // set player correct spawn position
+        player.transform.position = GameObject.Find("SpawnPoint").transform.position;
         
         weapon.SetWeaponLevel(int.Parse(data[3]));
     }
