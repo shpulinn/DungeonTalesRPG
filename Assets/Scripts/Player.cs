@@ -23,4 +23,21 @@ public class Player : Mover
     {
         _spriteRenderer.sprite = GameManager.instance.playerSprites[spriteID];
     }
+
+    public void PlayerLevelUp()
+    {
+        // On level up, player got more Maximum HP and restore current HP.
+        maxHealthPoint++;
+        healthPoint = maxHealthPoint;
+    }
+
+    public void SetLevel(int level)
+    {
+        if (GameManager.instance.GetCurrentLevel() <= 1)
+            return;
+        for (int i = 0; i < level; i++)
+        {
+            PlayerLevelUp();
+        }
+    }
 }
