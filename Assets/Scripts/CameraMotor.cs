@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class CameraMotor : MonoBehaviour
 {
-    public Transform lookAt;
+    private Transform _lookAt;
     public float boundX = 0.15f;
     public float boundY = 0.05f;
 
     private void Start()
     {
-        lookAt = GameObject.Find("Player").transform;
+        _lookAt = GameObject.Find("Player").transform;
     }
 
     private void LateUpdate()
@@ -17,10 +17,10 @@ public class CameraMotor : MonoBehaviour
         Vector3 delta = Vector3.zero;
 
         // This is to check if we're inside the bounds on the X axis
-        var deltaX = lookAt.position.x - transform.position.x;
+        var deltaX = _lookAt.position.x - transform.position.x;
         if (deltaX > boundX || deltaX < -boundX)
         {
-            if (transform.position.x < lookAt.position.x)
+            if (transform.position.x < _lookAt.position.x)
             {
                 delta.x = deltaX - boundX;
             }
@@ -30,10 +30,10 @@ public class CameraMotor : MonoBehaviour
             }
         }
         // This is to check if we're inside the bounds on the Y axis
-        var deltaY = lookAt.position.y - transform.position.y;
+        var deltaY = _lookAt.position.y - transform.position.y;
         if (deltaY > boundY || deltaY < -boundY)
         {
-            if (transform.position.y < lookAt.position.y)
+            if (transform.position.y < _lookAt.position.y)
             {
                 delta.y = deltaY - boundY;
             }
