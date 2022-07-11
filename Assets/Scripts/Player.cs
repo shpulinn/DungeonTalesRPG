@@ -42,4 +42,18 @@ public class Player : Mover
             PlayerLevelUp();
         }
     }
+
+    public void Heal(int healingAmount)
+    {
+        // If HP is maximum already
+        if (healthPoint == maxHealthPoint)
+            return;
+        
+        healthPoint += healingAmount;
+        // If HP after adding become more that allowed
+        if (healthPoint > maxHealthPoint)
+            healthPoint = maxHealthPoint;
+        // Show UI text
+       GameManager.instance.ShowText("+" + healingAmount.ToString() + " HP!", 25, Color.green, transform.position, Vector3.up * 30, 1.0f);
+    }
 }
