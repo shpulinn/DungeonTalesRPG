@@ -8438,7 +8438,7 @@ MonoBehaviour:
   - {fileID: -9052792337493064725, guid: f6f5327264a37e84b8de3cc9b26160e0, type: 3}
   - {fileID: -7870807981238829915, guid: f6f5327264a37e84b8de3cc9b26160e0, type: 3}
   weaponPrices: 320000006400000096000000c8000000fa0000002c010000
-  xpTable: 0a000000050000000a0000000f000000140000001e00000028000000370000004600000064000000
+  xpTable: 05000000070000000a0000000f000000140000001e00000028000000370000004600000064000000
   player: {fileID: 970231819}
   weapon: {fileID: 1912560667}
   floatingTextManager: {fileID: 1401436231}
@@ -13193,10 +13193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50c003c28beb1d48909f1ee2bb71891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoint: 3
-  maxHitPoint: 3
+  healthPoint: 0
+  maxHealthPoint: 10
   pushRecoverySpeed: 0.2
-  xpValue: 1
+  expValue: 1
   triggerLenght: 0.3
   chaseLenght: 1
   filter:
@@ -13363,6 +13363,14 @@ PrefabInstance:
     - target: {fileID: 6879332975417783275, guid: d5d24ccdbbb48d643beb932c36c3842a, type: 3}
       propertyPath: hitPoint
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879332975417783275, guid: d5d24ccdbbb48d643beb932c36c3842a, type: 3}
+      propertyPath: healthPoint
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6879332975417783275, guid: d5d24ccdbbb48d643beb932c36c3842a, type: 3}
+      propertyPath: maxHealthPoint
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6879332975417783275, guid: d5d24ccdbbb48d643beb932c36c3842a, type: 3}
       propertyPath: pushRecoverySpeed
