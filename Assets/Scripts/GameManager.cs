@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -79,7 +80,39 @@ public class GameManager : MonoBehaviour
 
         return r;
     }
-    
+
+    public int GetExpToLevel(int level)
+    {
+        int r = 0;
+        int exp = 0;
+
+        while (r < level)
+        {
+            exp += xpTable[r];
+            r++;
+        }
+
+        return exp;
+    }
+
+    public void GrantExperience(int exp)
+    {
+        int currentLevel = GetCurrentLevel();
+        experience += exp;
+        // Check level after adding experience
+        if (currentLevel < GetCurrentLevel())
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        player.PlayerLevelUp();
+    }
+
+    #region Save and Load region
+
     // ----= Save n Load states =----
     /*
      * INT preferedSkin
@@ -111,9 +144,28 @@ public class GameManager : MonoBehaviour
         //Change player data
         // Change skin
         coins = int.Parse(data[1]);
+        
         experience = int.Parse(data[2]);
+        player.SetLevel(GetCurrentLevel());
+        
         weapon.SetWeaponLevel(int.Parse(data[3]));
+    }
+
+    [MenuItem("Tools/Clear all saves")]
+    private static void ClearAllSaves()
+    {
+        string s = "";
+
+        s += "0" + "|";
+        s += "0" + "|";
+        s += "0" + "|";
+        s += "0";
+        
+        PlayerPrefs.SetString("SaveState", s);
+        Debug.Log("Save state " + s + " (all cleared!)");
     }
     
     // ----= end of Save n Load =----
+
+    #endregion
 }
