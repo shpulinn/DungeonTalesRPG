@@ -6,7 +6,7 @@ using UnityEngine;
 public class Enemy : Mover
 {
     // Experience 
-    [SerializeField] private int xpValue = 1;
+    [SerializeField] private int expValue = 1;
     
     // Logic
     public float triggerLenght = 1;
@@ -80,7 +80,7 @@ public class Enemy : Mover
     protected override void Death()
     {
         Destroy(gameObject);
-        GameManager.instance.experience += xpValue;
-        GameManager.instance.ShowText($"+ {xpValue} XP!", 30, Color.cyan, transform.position, Vector3.up * 40, 1.0f);
+        GameManager.instance.GrantExperience(expValue);
+        GameManager.instance.ShowText($"+ {expValue} XP!", 30, Color.cyan, transform.position, Vector3.up * 40, 1.0f);
     }
 }
