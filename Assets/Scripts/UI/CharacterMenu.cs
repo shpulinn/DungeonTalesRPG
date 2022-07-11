@@ -74,13 +74,31 @@ public class CharacterMenu : MonoBehaviour
             upgradeCostText.text = GameManager.instance.weaponPrices[GameManager.instance.weapon.weaponLevel].ToString();
         
         // Meta
-        hitpointsText.text = GameManager.instance.player.hitPoint.ToString();
-        levelText.text = "NOT IMPLEMENTED YET!";
+        hitpointsText.text = GameManager.instance.player.healthPoint.ToString();
+        levelText.text = GameManager.instance.GetCurrentLevel().ToString();
         coinsText.text = GameManager.instance.coins.ToString();
         
         // Experience bar
-        expText.text = "NOT IMPLEMENTED YET!";
-        expBar.localScale = new Vector3(.5f, 0, 0);
+        int currentLevel = GameManager.instance.GetCurrentLevel();
+        
+        if (currentLevel == GameManager.instance.xpTable.Count)
+        {
+            // Display total exp if max level reached
+            expText.text = $"{GameManager.instance.experience} total experience points.";
+            expBar.localScale = Vector3.one;
+        }
+        else
+        {
+            int previousLevelExp = GameManager.instance.GetExpToLevel(currentLevel - 1);
+            int currentLevelExp = GameManager.instance.GetExpToLevel(currentLevel);
+
+            int difference = currentLevelExp - previousLevelExp;
+            int currentExpIntoLevel = GameManager.instance.experience - previousLevelExp;
+
+            float completionRatio = (float)currentExpIntoLevel / (float)difference;
+            expBar.localScale = new Vector3(completionRatio, 1, 1);
+            expText.text = $"{currentExpIntoLevel} / {difference}";
+        }
     }
 
     private void HideCoinsMessage()
