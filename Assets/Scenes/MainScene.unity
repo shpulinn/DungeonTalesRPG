@@ -13193,7 +13193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c50c003c28beb1d48909f1ee2bb71891, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthPoint: 0
+  healthPoint: 3
   maxHealthPoint: 10
   pushRecoverySpeed: 0.2
   expValue: 1
