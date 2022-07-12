@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -16,11 +14,13 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             Destroy(player.gameObject);
             Destroy(floatingTextManager.gameObject);
+            Destroy(hudGO);
+            Destroy(menuGO);
             return;
         }
         instance = this;
+        SceneManager.sceneLoaded += OnSceneLoaded;
         SceneManager.sceneLoaded += LoadState;
-        DontDestroyOnLoad(gameObject);
     }
     
     // Resources
@@ -33,6 +33,10 @@ public class GameManager : MonoBehaviour
     public Player player;
     public Weapon weapon;
     public FloatingTextManager floatingTextManager;
+    public RectTransform healthPointBar;
+    public GameObject hudGO;
+    public GameObject menuGO;
+    [SerializeField] private string spawnPointName = "SpawnPoint";
     
     // Logic
     public int coins;
@@ -62,6 +66,13 @@ public class GameManager : MonoBehaviour
 
         // If not enough coins
         return false;
+    }
+    
+    // Health Bar
+    public void OnHealthPointChange()
+    {
+        float hpRatio = (float)player.healthPoint / (float)player.maxHealthPoint;
+        healthPointBar.localScale = new Vector3(1, hpRatio, 1);
     }
     
     // Experience logic
@@ -113,6 +124,12 @@ public class GameManager : MonoBehaviour
         player.PlayerLevelUp();
     }
 
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // set player correct spawn position
+        player.transform.position = GameObject.Find(spawnPointName).transform.position;
+    }
+
     #region Save and Load region
 
     // ----= Save n Load states =----
@@ -137,7 +154,8 @@ public class GameManager : MonoBehaviour
 
     public void LoadState(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Load state.");
+        SceneManager.sceneLoaded -= LoadState;
+        
         if (!PlayerPrefs.HasKey("SaveState"))
             return;
         
@@ -149,9 +167,7 @@ public class GameManager : MonoBehaviour
         
         experience = int.Parse(data[2]);
         player.SetLevel(GetCurrentLevel());
-        // set player correct spawn position
-        player.transform.position = GameObject.Find("SpawnPoint").transform.position;
-        
+
         weapon.SetWeaponLevel(int.Parse(data[3]));
     }
 
