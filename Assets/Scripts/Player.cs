@@ -10,8 +10,13 @@ public class Player : Mover
     {
         base.Start();
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        DontDestroyOnLoad(gameObject);
+    }
+
+    protected override void ReceiveDamage(Damage dmg)
+    {
+        base.ReceiveDamage(dmg);
+        // Update Health bar
+        GameManager.instance.OnHealthPointChange();
     }
 
     private void FixedUpdate()
@@ -31,6 +36,8 @@ public class Player : Mover
         // On level up, player got more Maximum HP and restore current HP.
         maxHealthPoint++;
         healthPoint = maxHealthPoint;
+        // Update Health bar
+        GameManager.instance.OnHealthPointChange();
     }
 
     public void SetLevel(int level)
@@ -53,6 +60,9 @@ public class Player : Mover
         // If HP after adding become more that allowed
         if (healthPoint > maxHealthPoint)
             healthPoint = maxHealthPoint;
+        
+        // Update Health bar
+        GameManager.instance.OnHealthPointChange();
         // Show UI text
        GameManager.instance.ShowText("+" + healingAmount.ToString() + " HP!", 25, Color.green, transform.position, Vector3.up * 30, 1.0f);
     }
