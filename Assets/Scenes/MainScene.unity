@@ -7880,7 +7880,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 682276898}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1a593bb5c8ab554789d1e9e1c7f17fe, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ec2dcb5285d0074eb4ee7b4aab3f87f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   filter:
@@ -7897,6 +7897,8 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  message: Welcome to the dungeon, master!
+  coolDownTime: 4
 --- !u!1 &721997930
 GameObject:
   m_ObjectHideFlags: 0
@@ -13111,6 +13113,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1912560666, guid: d5d24ccdbbb48d643beb932c36c3842a, type: 3}
+      propertyPath: m_Size.y
+      value: 0.253198
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912560666, guid: d5d24ccdbbb48d643beb932c36c3842a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1912560666, guid: d5d24ccdbbb48d643beb932c36c3842a, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.023401007
+      objectReference: {fileID: 0}
     - target: {fileID: 6879332975417783272, guid: d5d24ccdbbb48d643beb932c36c3842a, type: 3}
       propertyPath: m_Name
       value: Player
