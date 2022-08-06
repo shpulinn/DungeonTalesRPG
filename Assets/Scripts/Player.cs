@@ -6,6 +6,8 @@ public class Player : Mover
 {
     private SpriteRenderer _spriteRenderer;
 
+    private bool _isAlive = true;
+
     protected override void Start()
     {
         base.Start();
@@ -14,13 +16,25 @@ public class Player : Mover
 
     protected override void ReceiveDamage(Damage dmg)
     {
+        if (_isAlive == false)
+            return;
+        
         base.ReceiveDamage(dmg);
         // Update Health bar
         GameManager.instance.OnHealthPointChange();
     }
 
+    protected override void Death()
+    {
+        _isAlive = false;
+        GameManager.instance.deathMenuAnimator.SetTrigger("Show");
+    }
+
     private void FixedUpdate()
     {
+        if (_isAlive == false)
+            return;
+        
         float x = Input.GetAxisRaw("Horizontal");
         float y = Input.GetAxisRaw("Vertical");
         UpdateMotor(new Vector3(x, y, 0));
@@ -65,5 +79,13 @@ public class Player : Mover
         GameManager.instance.OnHealthPointChange();
         // Show UI text
        GameManager.instance.ShowText("+" + healingAmount.ToString() + " HP!", 25, Color.green, transform.position, Vector3.up * 30, 1.0f);
+    }
+
+    public void Respawn()
+    {
+        Heal(maxHealthPoint);
+        _isAlive = true;
+        lastImmune = Time.time;
+        pushDirection = Vector3.zero;
     }
 }
