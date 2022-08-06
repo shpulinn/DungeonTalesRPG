@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
     public RectTransform healthPointBar;
     public GameObject hudGO;
     public GameObject menuGO;
+    public Animator deathMenuAnimator;
     [SerializeField] private string spawnPointName = "SpawnPoint";
     
     // Logic
@@ -129,6 +130,14 @@ public class GameManager : MonoBehaviour
         // set player correct spawn position
         player.transform.position = GameObject.Find(spawnPointName).transform.position;
     }
+    
+    // Death Menu and Respawn
+    public void Respawn()
+    {
+        deathMenuAnimator.SetTrigger("Hide");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainScene");
+        player.Respawn();
+    }
 
     #region Save and Load region
 
@@ -171,6 +180,7 @@ public class GameManager : MonoBehaviour
         weapon.SetWeaponLevel(int.Parse(data[3]));
     }
 
+    #if UNITY_EDITOR
     [MenuItem("Tools/Clear all saves")]
     private static void ClearAllSaves()
     {
@@ -184,6 +194,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetString("SaveState", s);
         Debug.Log("Save state " + s + " (all cleared!)");
     }
+    #endif
     
     // ----= end of Save n Load =----
 
