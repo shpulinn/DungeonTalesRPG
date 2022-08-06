@@ -45,14 +45,14 @@ TagManager:
   - name: Floor
     uniqueID: 1790013317
     locked: 0
-  - name: Actor
-    uniqueID: 3946464953
-    locked: 0
   - name: Wall
     uniqueID: 448209395
     locked: 0
   - name: Interactable
     uniqueID: 3004120513
+    locked: 0
+  - name: Actor
+    uniqueID: 3946464953
     locked: 0
   - name: Weapon
     uniqueID: 1782282975
